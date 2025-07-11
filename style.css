@@ -65,6 +65,14 @@ body {
     border-radius: 8px;
 }
 
+#secret-character-btn {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+#secret-character-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ff6600;
+}
+
 .hidden {
     display: none;
 } 

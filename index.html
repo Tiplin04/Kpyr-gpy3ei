@@ -24,6 +24,11 @@
             <button class="character-btn" data-character="Саша"><img src="images/Саша.png" alt="Саша"></button>
             <button class="character-btn" data-character="Артем"><img src="images/Артем.png" alt="Артем"></button>
         </div>
+        <div style="margin-top: 40px; display: flex; flex-direction: column; align-items: center;">
+            <button id="secret-character-btn" style="width: 110px; height: 110px; background: #ffb347; border: 3px solid #ff6600; border-radius: 12px; margin-bottom: 10px; font-size: 18px; color: #222; font-weight: bold;">???</button>
+            <input id="secret-password" type="password" placeholder="Пароль" style="display:none; margin-bottom: 10px; font-size: 18px; padding: 4px 8px; border-radius: 6px; border: 1px solid #ccc; text-align: center;">
+            <div id="secret-error" style="color: #ff3333; font-size: 16px; display:none;">Неверный пароль</div>
+        </div>
         <button id="restart-btn" style="margin-top: 30px; font-size: 20px; padding: 10px 30px; border-radius: 10px; border: 2px solid #fff; background: #222; color: #fff; cursor: pointer;">Рестарт игры</button>
     </div>
     <canvas id="gameCanvas"></canvas>

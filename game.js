@@ -15,17 +15,23 @@ class Game {
         this.selectedCharacter = null;
         this.availableCharacters = [
             'TripOK', 'Вова', 'Назар', 'Егор', 'Денис',
-            'Максім', 'Андрєй', 'Саша', 'Артем'
+            'Максім', 'Андрєй', 'Саша', 'Артем', 'SECRET'
         ];
         this.loadCharacterImages();
         this.setupCharacterSelection();
+        this.setupSecretCharacter();
         this.resize();
         window.addEventListener('resize', () => this.resize());
     }
     loadCharacterImages() {
         this.availableCharacters.forEach(character => {
             const img = new Image();
-            img.src = `images/${character}.png`;
+            if (character === 'SECRET') {
+                img.src = `images/Мама.png`;
+                img.onerror = () => {};
+            } else {
+                img.src = `images/${character}.png`;
+            }
             this.characterImages[character] = img;
         });
     }
@@ -36,6 +42,30 @@ class Game {
                 this.startGame(character);
             });
         });
+    }
+    setupSecretCharacter() {
+        const secretBtn = document.getElementById('secret-character-btn');
+        const secretInput = document.getElementById('secret-password');
+        const secretError = document.getElementById('secret-error');
+        if (secretBtn && secretInput && secretError) {
+            secretBtn.addEventListener('click', () => {
+                secretInput.style.display = 'block';
+                secretInput.value = '';
+                secretError.style.display = 'none';
+                secretInput.focus();
+            });
+            secretInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    if (secretInput.value === 'мама') {
+                        secretError.style.display = 'none';
+                        this.startGame('SECRET');
+                        secretInput.style.display = 'none';
+                    } else {
+                        secretError.style.display = 'block';
+                    }
+                }
+            });
+        }
     }
     startGame(selectedCharacter) {
         this.selectedCharacter = selectedCharacter;
@@ -129,7 +159,8 @@ class Game {
             this.ctx.fillStyle = 'black';
             this.ctx.font = '16px Arial';
             this.ctx.textAlign = 'center';
-            this.ctx.fillText(player.character + (player.id === myId ? ' (Вы)' : '') + `: ${player.score}`, player.x + offsetX, player.y + offsetY - player.radius - 10);
+            let name = player.character === 'SECRET' ? 'Мама' : player.character;
+            this.ctx.fillText(name + (player.id === myId ? ' (Вы)' : '') + `: ${player.score}`, player.x + offsetX, player.y + offsetY - player.radius - 10);
         });
     }
 }
