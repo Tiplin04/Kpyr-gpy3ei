@@ -61,8 +61,8 @@ wss.on('connection', (ws) => {
                 // data: { character }
                 player = {
                     id: playerId,
-                    x: CANVAS_WIDTH / 2,
-                    y: CANVAS_HEIGHT / 2,
+                    x: Math.random() * CANVAS_WIDTH,
+                    y: Math.random() * CANVAS_HEIGHT,
                     radius: 20,
                     character: data.character,
                     score: 0,
@@ -78,6 +78,19 @@ wss.on('connection', (ws) => {
                     player.dx = data.dx;
                     player.dy = data.dy;
                 }
+            } else if (data.type === 'restart') {
+                // Сбросить всю игру
+                players = {};
+                bots = [];
+                food = [];
+                nextPlayerId = 1;
+                spawnFoodIfNeeded();
+                // Оповестить всех клиентов о рестарте
+                wss.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify({ type: 'restart' }));
+                    }
+                });
             }
         } catch (e) {}
     });
@@ -187,8 +200,8 @@ function updateGame() {
                 a.score += Math.floor(b.radius);
                 // Если b — игрок, респавним его и сбрасываем счёт
                 if (!b.isBot) {
-                    b.x = CANVAS_WIDTH / 2;
-                    b.y = CANVAS_HEIGHT / 2;
+                    b.x = Math.random() * CANVAS_WIDTH;
+                    b.y = Math.random() * CANVAS_HEIGHT;
                     b.radius = 20;
                     b.score = 0;
                 } else {
