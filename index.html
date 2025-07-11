@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agar.io Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="menu" class="menu">
+        <h1>Выберите персонажа</h1>
+        <div style="margin-bottom: 20px;">
+            <label style="color:white; font-size:18px;">Адрес сервера: </label>
+            <input id="server-address" type="text" value="localhost:3000" style="font-size:16px; padding:4px 8px; border-radius:5px; border:1px solid #ccc; width:200px;">
+        </div>
+        <div class="characters">
+            <button class="character-btn" data-character="TripOK"><img src="images/TripOK.png" alt="TripOK"></button>
+            <button class="character-btn" data-character="Вова"><img src="images/Вова.png" alt="Вова"></button>
+            <button class="character-btn" data-character="Назар"><img src="images/Назар.png" alt="Назар"></button>
+            <button class="character-btn" data-character="Егор"><img src="images/Егор.png" alt="Егор"></button>
+            <button class="character-btn" data-character="Денис"><img src="images/Денис.png" alt="Денис"></button>
+            <button class="character-btn" data-character="Максім"><img src="images/Максім.png" alt="Максім"></button>
+            <button class="character-btn" data-character="Андрєй"><img src="images/Андрєй.png" alt="Андрєй"></button>
+            <button class="character-btn" data-character="Саша"><img src="images/Саша.png" alt="Саша"></button>
+            <button class="character-btn" data-character="Артем"><img src="images/Артем.png" alt="Артем"></button>
+        </div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script src="game.js"></script>
+</body>
+</html> 
