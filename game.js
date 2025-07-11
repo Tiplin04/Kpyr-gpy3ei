@@ -64,6 +64,9 @@ class Game {
             } else if (data.type === 'state') {
                 allPlayers = data.players;
                 allFood = data.food;
+            } else if (data.type === 'restart') {
+                // Показываем меню выбора персонажа
+                this.menu.classList.remove('hidden');
             }
         };
     }
@@ -367,6 +370,26 @@ document.addEventListener('DOMContentLoaded', () => {
             window.mouseX = canvas.width / 2;
             window.mouseY = canvas.height / 2;
         }, { passive: false });
+    }
+    // === КНОПКА РЕСТАРТА ===
+    const restartBtn = document.getElementById('restart-btn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
+            if (socket && socket.readyState === 1) {
+                socket.send(JSON.stringify({ type: 'restart' }));
+            }
+        });
+    }
+    // Восстанавливаем последний адрес сервера из localStorage
+    const addressInput = document.getElementById('server-address');
+    if (addressInput) {
+        const lastAddress = localStorage.getItem('lastServerAddress');
+        if (lastAddress) {
+            addressInput.value = lastAddress;
+        }
+        addressInput.addEventListener('input', () => {
+            localStorage.setItem('lastServerAddress', addressInput.value.trim());
+        });
     }
 });
 
